@@ -82,7 +82,18 @@ export async function updateMetadataFromCache(
     }
   }
   const toUpdate = metadataByCandyMachine.filter(
-    m => !!differences[m[0].data.name],
+    (m) => {
+      console.log(
+        m[0].data.name,
+        differences[m[0].data.name],
+        m[0].data.uri,
+        'Needs to update', m[0].data.uri !== differences[m[0].data.name],
+      );
+      return (
+        !!differences[m[0].data.name] &&
+        m[0].data.uri !== differences[m[0].data.name]
+      );
+    },
   );
   log.info('Found', toUpdate.length, 'uris to update');
   let total = 0;
