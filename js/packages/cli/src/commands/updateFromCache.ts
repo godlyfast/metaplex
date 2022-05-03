@@ -77,12 +77,12 @@ export async function updateMetadataFromCache(
       cacheContent.items[i.toString()].link !=
       newCacheContent.items[i.toString()].link
     ) {
-      differences[cacheContent.items[i.toString()].link] =
+      differences[cacheContent.items[i.toString()].name] =
         newCacheContent.items[i.toString()].link;
     }
   }
   const toUpdate = metadataByCandyMachine.filter(
-    m => !!differences[m[0].data.uri],
+    m => !!differences[m[0].data.name],
   );
   log.info('Found', toUpdate.length, 'uris to update');
   let total = 0;
@@ -114,7 +114,7 @@ async function updateMetadataBatch(
         c =>
           new Creator({ ...c, address: new PublicKey(c.address).toBase58() }),
       ),
-      uri: differences[meta[0].data.uri],
+      uri: differences[meta[0].data.name],
     });
 
     const value = new UpdateMetadataArgs({
