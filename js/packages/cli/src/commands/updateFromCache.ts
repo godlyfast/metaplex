@@ -83,11 +83,11 @@ export async function updateMetadataFromCache(
   }
   const toUpdate = metadataByCandyMachine.filter(
     (m) => {
-      console.log(
+      log.info(
         m[0].data.name,
         differences[m[0].data.name],
         m[0].data.uri,
-        'Needs to update', m[0].data.uri !== differences[m[0].data.name],
+        m[0].data.uri !== differences[m[0].data.name] ? 'Needs Update' : '',
       );
       return (
         !!differences[m[0].data.name] &&
